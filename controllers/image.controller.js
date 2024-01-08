@@ -2,6 +2,9 @@ const Jimp = require('jimp');
 
 module.exports = {
   batTu: async (req, res) => {
+    const fullName = req.body.fullName;
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+
     // Đọc ảnh
     const buffer = Buffer.from(req.body.img, 'base64');
     const image = await Jimp.read(buffer);
@@ -21,8 +24,15 @@ module.exports = {
       mode: Jimp.BLEND_DEST_OVER,
     });
 
+    //đổi tên
+    const textLayer4 = new Jimp(500, 35, 0xffffffff);
+    textLayer4.print(font, 0, 0, fullName);
+    image.composite(textLayer4, 900, 20, {
+      mode: Jimp.BLEND_DEST_OVER,
+    });
+
     // Ghi ảnh đã chỉnh sửa ra file mới
-    //   await image.writeAsync('xyz.png');
+    // await image.writeAsync('xyz.png');
     // Chuyển đổi ảnh thành buffer
     const buffer1 = await image.getBufferAsync(Jimp.MIME_PNG);
 
