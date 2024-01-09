@@ -3,7 +3,7 @@ const Jimp = require('jimp');
 module.exports = {
   batTu: async (req, res) => {
     const fullName = req.body.fullName;
-    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_16_BLACK);
 
     // Đọc ảnh
     const buffer = Buffer.from(req.body.img, 'base64');

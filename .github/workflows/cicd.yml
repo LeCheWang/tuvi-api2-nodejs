@@ -23,5 +23,4 @@ jobs:
               . ~/.nvm/nvm.sh
             cd app/tuvi-api2-nodejs/
             git pull origin master
-            npm i
             pm2 start ecosystem.config.js
