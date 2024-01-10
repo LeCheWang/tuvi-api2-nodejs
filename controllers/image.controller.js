@@ -1,10 +1,11 @@
 const Jimp = require('jimp');
+const { removeVietnameseAccents } = require('../helpers/format.string');
 
 module.exports = {
   batTu: async (req, res) => {
-    const fullName = req.body.fullName;
-    const font = await Jimp.loadFont(Jimp.FONT_SANS_16_BLACK);
+    const fullName = removeVietnameseAccents(req.body.fullName);
 
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_32_BLACK);
     // Đọc ảnh
     const buffer = Buffer.from(req.body.img, 'base64');
     const image = await Jimp.read(buffer);
@@ -33,6 +34,7 @@ module.exports = {
 
     // Ghi ảnh đã chỉnh sửa ra file mới
     // await image.writeAsync('xyz.png');
+    // return res.send('1');
     // Chuyển đổi ảnh thành buffer
     const buffer1 = await image.getBufferAsync(Jimp.MIME_PNG);
 
